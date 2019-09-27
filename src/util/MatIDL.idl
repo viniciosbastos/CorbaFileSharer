@@ -1,0 +1,6 @@
+module Matematica{
+	interface Calculadora{
+		float soma (in float arg1, in float arg2);
+		float divisao (in float arg1, in float arg2);
+	};
+};
