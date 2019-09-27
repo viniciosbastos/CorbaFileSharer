@@ -6,5 +6,9 @@ interface IBasePresenter<T: IBaseView> {
 
     val view: T
 
-    fun createScene() = view.render()
+    fun setListeners()
+    fun createScene(): Scene {
+        setListeners()
+        return view.render()
+    }
 }

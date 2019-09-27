@@ -1,4 +1,4 @@
 package client.ui
 
-class FilesScene {
+class FilesPane {
 }
