@@ -2,8 +2,9 @@ package server
 
 import shared.FileSharerServer.FileSharerPOA
 
+
 class FileSharerImpl: FileSharerPOA() {
-    override fun updateRemoteFiles(files: Array<out String>?) {
+    override fun updateRemoteFiles(clientUsername: String?, files: Array<out String>?) {
         println("Cheguei aqui")
     }
 

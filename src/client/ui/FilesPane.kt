@@ -12,8 +12,8 @@ class FilesPane: IFilesContract.IView{
     lateinit var updateRemoteButton: Button
 
     private fun addButtons() {
-        updateLocalButton = Button("Load")
-        updateRemoteButton = Button("Sync")
+        updateLocalButton = Button("Update Local")
+        updateRemoteButton = Button("Update Remote")
         root.children.add(HBox().apply { children.addAll(updateLocalButton, updateRemoteButton) })
     }
 

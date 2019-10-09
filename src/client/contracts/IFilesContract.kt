@@ -10,7 +10,7 @@ interface IFilesContract {
     }
 
     interface IPresenter: IBasePresenter<IView> {
-        fun updateRemote()
-        fun updateLocal()
+        fun sendFilesToServer()
+        fun updateLocalList()
     }
 }

@@ -1,21 +1,24 @@
 package client.presenters
 
 import client.contracts.IFilesContract
+import client.interactors.IRemoteFilesInteractor
 import client.ui.FilesPane
 
-class FilesPresenter: IFilesContract.IPresenter {
+class FilesPresenter
+    constructor(private val interactor: IRemoteFilesInteractor)
+    : IFilesContract.IPresenter {
     override val view = FilesPane()
 
     override fun setListeners() {
-        view.updateLocalButton.setOnMouseClicked { updateLocal() }
-        view.updateRemoteButton.setOnMouseClicked { updateRemote() }
+        view.updateLocalButton.setOnMouseClicked { updateLocalList() }
+        view.updateRemoteButton.setOnMouseClicked { sendFilesToServer() }
     }
 
-    override fun updateRemote() {
-
+    override fun sendFilesToServer() {
+        interactor.updateRemote()
     }
 
-    override fun updateLocal() {
-
+    override fun updateLocalList() {
+        val files = interactor.updateLocal()
     }
 }
