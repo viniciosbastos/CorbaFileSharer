@@ -1,0 +1,7 @@
+module FileSharerServer {
+    typedef sequence<string> StringList;
+    interface FileSharer {
+        oneway void updateRemoteFiles(in StringList files);
+        StringList getFilesFromRemote();
+    };
+};

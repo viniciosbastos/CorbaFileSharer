@@ -2,6 +2,7 @@ package client.ui
 
 import client.contracts.IMainContract
 import client.presenters.SettingsPresenter
+import client.protocols.ServerProtocol
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.scene.control.Label
@@ -65,6 +66,10 @@ class MainStage: Application() {
 
     private class MainPresenter constructor(private val owner: Window): IMainContract.IPresenter {
         override val view = MainScene()
+
+        init {
+            ServerProtocol.get().synchronize()
+        }
 
         override fun setListeners() {
             view.titleLabel.setOnMouseClicked { showHomeView() }
