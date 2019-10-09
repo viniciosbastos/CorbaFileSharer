@@ -16,7 +16,7 @@ import server.presenters.MainPresenter
 class MainStage: Application() {
     override fun start(primaryStage: Stage) {
         primaryStage.apply {
-            title = "FileSharer Client"
+            title = "FileSharer Server"
             scene = MainPresenter(primaryStage).renderScene()
             show()
         }

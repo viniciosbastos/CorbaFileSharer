@@ -2,11 +2,15 @@ package server.contracts
 
 import javafx.scene.Scene
 import javafx.scene.layout.Pane
+import server.db.Entry
 import shared.IBaseScene
 
 interface IMainContract {
 
     interface IScene: IBaseScene {
+        fun addEntries(entries: List<Entry>)
+        fun addClient(entry: Entry)
+        fun showClientsFiles(index: Int)
     }
 
     interface IPresenter{
