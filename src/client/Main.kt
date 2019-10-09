@@ -1,6 +1,6 @@
 package client
 
-import client.ui.MainStage
+import server.ui.MainStage
 import javafx.application.Application
 
 fun main(args: Array<String>) {

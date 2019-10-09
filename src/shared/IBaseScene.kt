@@ -1,4 +1,4 @@
-package client.contracts
+package shared
 
 import javafx.scene.Scene
 

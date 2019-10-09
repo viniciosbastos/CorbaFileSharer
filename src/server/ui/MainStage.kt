@@ -1,4 +1,4 @@
-package client.ui
+package server.ui
 
 import server.contracts.IMainContract
 import client.presenters.SettingsPresenter

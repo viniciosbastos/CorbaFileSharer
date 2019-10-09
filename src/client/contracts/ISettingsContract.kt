@@ -1,5 +1,7 @@
 package client.contracts
 
+import shared.IBasePane
+import shared.IBasePresenter
 import java.io.File
 
 interface ISettingsContract {

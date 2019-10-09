@@ -1,4 +1,4 @@
-package client.contracts
+package server.contracts
 
 import javafx.scene.Scene
 import javafx.scene.layout.Pane
