@@ -2,6 +2,7 @@ package client.ui
 
 import client.contracts.IFilesContract
 import javafx.scene.control.Button
+import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
 
 class FilesPane: IFilesContract.IView{
@@ -13,7 +14,7 @@ class FilesPane: IFilesContract.IView{
     private fun addButtons() {
         updateLocalButton = Button("Load")
         updateRemoteButton = Button("Sync")
-        root.children.addAll(updateLocalButton, updateRemoteButton)
+        root.children.add(HBox().apply { children.addAll(updateLocalButton, updateRemoteButton) })
     }
 
     override fun render(): Pane {
