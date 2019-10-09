@@ -8,7 +8,7 @@ interface IMainContract {
 
     interface IScene: IBaseScene {
         fun showSettingsView(settings: Pane)
-        fun showHomeView()
+        fun showHomeView(home: Pane)
     }
 
     interface IPresenter{
@@ -21,6 +21,6 @@ interface IMainContract {
             return scene
         }
         fun showSettingsView()
-        fun showHomeView() = view.showHomeView()
+        fun showHomeView()
     }
 }

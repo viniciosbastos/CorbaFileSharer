@@ -1,6 +1,7 @@
 package client.ui
 
 import client.contracts.IMainContract
+import client.presenters.FilesPresenter
 import client.presenters.SettingsPresenter
 import client.protocols.ServerProtocol
 import javafx.application.Application
@@ -56,19 +57,26 @@ class MainStage: Application() {
         }
 
         override fun showSettingsView(settings: Pane) {
-            navPane.children.add(settings)
+            changePane(settings)
         }
 
-        override fun showHomeView() {
-            println("Home")
+        override fun showHomeView(home: Pane) {
+            changePane(home)
+        }
+
+        private fun changePane(pane: Pane) {
+            navPane.children.clear()
+            navPane.children.add(pane)
         }
     }
 
     private class MainPresenter constructor(private val owner: Window): IMainContract.IPresenter {
         override val view = MainScene()
+        private var settingsPresenter: SettingsPresenter? = null
+        private var filesPresenter: FilesPresenter? = null
 
         init {
-            ServerProtocol.get().synchronize()
+//            ServerProtocol.get().synchronize()
         }
 
         override fun setListeners() {
@@ -77,8 +85,23 @@ class MainStage: Application() {
         }
 
         override fun showSettingsView() {
-            val settingsPresenter = SettingsPresenter(owner)
-            view.showSettingsView(settingsPresenter.render())
+            if (settingsPresenter == null)
+                settingsPresenter = SettingsPresenter(owner)
+
+            settingsPresenter?.let { view.showSettingsView(it.render()) }
+        }
+
+        override fun showHomeView() {
+            if (filesPresenter == null)
+                filesPresenter = FilesPresenter()
+
+            filesPresenter?.let { view.showHomeView(it.render()) }
+        }
+
+        override fun renderScene(): Scene {
+            val scene = super.renderScene()
+            showHomeView()
+            return scene
         }
     }
 }
