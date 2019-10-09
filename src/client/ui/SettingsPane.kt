@@ -13,23 +13,33 @@ import java.io.File
 
 open class SettingsPane constructor(private val owner: Window): ISettingsContract.IView {
     override val root: Pane = Pane()
+    lateinit var username: TextField
     lateinit var folderPath: TextField
     lateinit var searchButton: Button
+    lateinit var saveButton: Button
 
-    private fun addFolderForm() {
-        val grid = GridPane().apply { add(Label("Pasta Compartilhada"),0, 0) }
-
+    private fun addForm() {
+        val grid = GridPane()
+        username = TextField()
         val box = HBox()
         folderPath = TextField()
         folderPath.isEditable = false
         searchButton = Button("...")
+        saveButton = Button("Save")
+
         box.children.addAll(folderPath, searchButton)
-        grid.add(box, 0, 1)
+        grid.apply{
+            add(Label("Nome do Usuário"),0, 0)
+            add(username, 0, 1)
+            add(Label("Pasta Compartilhada"),0, 2)
+            add(box, 0, 3)
+            add(saveButton, 0, 4)
+        }
         root.children.add(grid)
     }
 
     override fun render(): Pane {
-        addFolderForm()
+        addForm()
         return root
     }
 

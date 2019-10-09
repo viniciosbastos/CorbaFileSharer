@@ -10,11 +10,19 @@ class SettingsPresenter constructor(private val owner: Window): ISettingsContrac
 
     override fun setListeners() {
         view.searchButton.setOnMouseClicked { chooseFolder() }
+        view.saveButton.setOnMouseClicked { save() }
     }
 
     override fun chooseFolder() {
         val file = view.chooseFolder()
         view.showFolderPath(file.absolutePath)
-        UserPreferences.get().sharedFolder = file.absolutePath
+    }
+
+    override fun save() {
+        UserPreferences.get().apply {
+            sharedFolder = view.folderPath.text
+            username = view.username.text
+        }
+
     }
 }

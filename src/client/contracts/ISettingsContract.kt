@@ -13,5 +13,6 @@ interface ISettingsContract {
 
     interface IPresenter: IBasePresenter<IView> {
         fun chooseFolder()
+        fun save()
     }
 }
