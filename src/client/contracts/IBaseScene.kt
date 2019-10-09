@@ -2,6 +2,6 @@ package client.contracts
 
 import javafx.scene.Scene
 
-interface IBaseView {
+interface IBaseScene {
     fun render(): Scene
 }

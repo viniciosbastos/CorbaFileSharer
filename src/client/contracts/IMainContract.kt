@@ -1,12 +1,25 @@
 package client.contracts
 
+import javafx.scene.Scene
+import javafx.scene.layout.Pane
+
 interface IMainContract {
 
-    interface IView: IBaseView {
-
+    interface IScene: IBaseScene {
+        fun showSettingsView(settings: Pane)
+        fun showHomeView()
     }
 
-    interface IPresenter: IBasePresenter<IView> {
+    interface IPresenter{
+        val view: IScene
 
+        fun setListeners()
+        fun renderScene(): Scene {
+            val scene = view.render()
+            setListeners()
+            return scene
+        }
+        fun showSettingsView()
+        fun showHomeView() = view.showHomeView()
     }
 }

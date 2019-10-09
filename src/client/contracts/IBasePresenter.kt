@@ -1,14 +1,15 @@
 package client.contracts
 
-import javafx.scene.Scene
+import javafx.scene.layout.Pane
 
-interface IBasePresenter<T: IBaseView> {
+interface IBasePresenter<T: IBasePane> {
 
     val view: T
 
     fun setListeners()
-    fun createScene(): Scene {
+    fun render(): Pane {
+        val scene = view.render()
         setListeners()
-        return view.render()
+        return scene
     }
 }

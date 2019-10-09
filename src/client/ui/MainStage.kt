@@ -1,26 +1,32 @@
 package client.ui
 
 import client.contracts.IMainContract
+import client.presenters.SettingsPresenter
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.scene.control.Label
 import javafx.scene.layout.GridPane
+import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
 import javafx.scene.layout.RowConstraints
 import javafx.stage.Stage
+import javafx.stage.Window
 
 class MainStage: Application() {
     override fun start(primaryStage: Stage) {
         primaryStage.apply {
             title = "FileSharer Client"
-            scene = MainPresenter().createScene()
+            scene = MainPresenter(primaryStage).renderScene()
             show()
         }
     }
 
-    private class MainScene: IMainContract.IView {
+    open class MainScene: IMainContract.IScene {
         private lateinit var rootElement: GridPane
         private lateinit var navPane: Pane
+
+        lateinit var titleLabel: Label
+        lateinit var settingsLabel: Label
 
         private fun createRootElement() {
             rootElement = GridPane().apply {
@@ -28,33 +34,46 @@ class MainStage: Application() {
             }
         }
 
-        private fun createHeader() {
-            val label = Label("FileSharer")
-            label.setOnMouseClicked {  }
-            rootElement.add(label, 0, 0)
+        private fun addHeader() {
+            val box = HBox()
+            titleLabel = Label("FileSharer")
+            settingsLabel = Label("Settings")
+            box.children.addAll(titleLabel, settingsLabel)
+            rootElement.add(box, 0, 0)
         }
 
-        private fun createNavPane() {
+        private fun addNavPane() {
             navPane = Pane()
-            navPane.children.add(Label("Nothing to show here."))
             rootElement.add(navPane, 0, 1)
         }
 
         override fun render(): Scene {
             createRootElement()
-            createHeader()
-            createNavPane()
+            addHeader()
+            addNavPane()
             return Scene(rootElement, 1200.0, 600.0).apply { stylesheets.add("client/ui/styles/main.css") }
         }
 
+        override fun showSettingsView(settings: Pane) {
+            navPane.children.add(settings)
+        }
+
+        override fun showHomeView() {
+            println("Home")
+        }
     }
 
-    private class MainPresenter: IMainContract.IPresenter {
-
+    private class MainPresenter constructor(private val owner: Window): IMainContract.IPresenter {
         override val view = MainScene()
 
         override fun setListeners() {
-//            TODO("Implement view listeners")
+            view.titleLabel.setOnMouseClicked { showHomeView() }
+            view.settingsLabel.setOnMouseClicked { showSettingsView() }
+        }
+
+        override fun showSettingsView() {
+            val settingsPresenter = SettingsPresenter(owner)
+            view.showSettingsView(settingsPresenter.render())
         }
     }
 }
