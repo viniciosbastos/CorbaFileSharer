@@ -1,6 +1,6 @@
 package client.ui
 
-import server.contracts.IMainContract
+import client.contracts.IMainContract
 import client.presenters.SettingsPresenter
 import javafx.application.Application
 import javafx.scene.Scene

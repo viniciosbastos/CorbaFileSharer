@@ -7,8 +7,6 @@ import shared.IBaseScene
 interface IMainContract {
 
     interface IScene: IBaseScene {
-        fun showSettingsView(settings: Pane)
-        fun showHomeView()
     }
 
     interface IPresenter{
@@ -20,7 +18,5 @@ interface IMainContract {
             setListeners()
             return scene
         }
-        fun showSettingsView()
-        fun showHomeView() = view.showHomeView()
     }
 }
