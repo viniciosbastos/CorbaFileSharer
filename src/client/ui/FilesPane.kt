@@ -7,15 +7,17 @@ import javafx.scene.layout.Pane
 class FilesPane: IFilesContract.IView{
     override val root: Pane = Pane()
 
-    lateinit var loadButton: Button
+    lateinit var updateLocalButton: Button
+    lateinit var updateRemoteButton: Button
 
-    fun addLoadButton() {
-        loadButton = Button("Load")
-        root.children.add(loadButton)
+    private fun addButtons() {
+        updateLocalButton = Button("Load")
+        updateRemoteButton = Button("Sync")
+        root.children.addAll(updateLocalButton, updateRemoteButton)
     }
 
     override fun render(): Pane {
-        addLoadButton()
+        addButtons()
         return root
     }
 }
