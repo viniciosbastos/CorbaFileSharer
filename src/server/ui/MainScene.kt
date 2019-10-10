@@ -54,9 +54,7 @@ open class MainScene: IMainContract.IScene {
     }
 
     private fun createClientPane(entry: Entry) {
-        val pane = Pane()
-        pane.children.add(Label(entry.clientUsername))
-        entriesList.add(pane)
+        entriesList.add(EntryAdapter(entry).pane)
     }
 
     override fun addClient(entry: Entry) {
