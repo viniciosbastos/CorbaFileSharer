@@ -66,6 +66,7 @@ open class MainScene: IMainContract.IScene {
     }
 
     override fun addEntries(entries: List<Entry>) {
+        entriesList.clear()
         entries.forEach { createClientPane(it) }
     }
 }
