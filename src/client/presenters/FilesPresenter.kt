@@ -20,5 +20,6 @@ class FilesPresenter
 
     override fun updateLocalList() {
         val files = interactor.updateLocal()
+        view.showFilesList(files)
     }
 }

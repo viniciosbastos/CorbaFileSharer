@@ -8,8 +8,8 @@ interface IBasePresenter<T: IBasePane> {
 
     fun setListeners()
     fun render(): Pane {
-        val scene = view.render()
+        val pane = view.render()
         setListeners()
-        return scene
+        return pane
     }
 }
