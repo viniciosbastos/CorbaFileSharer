@@ -7,6 +7,7 @@ import javafx.scene.control.ListView
 import javafx.scene.control.ScrollPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
+import javafx.scene.layout.VBox
 
 class FilesPane: IFilesContract.IView{
     override val root: Pane = Pane()
@@ -21,18 +22,16 @@ class FilesPane: IFilesContract.IView{
     init {
         listView.items = filesList
         scrollPane.content = listView
-        addListView()
-        addButtons()
+
+        val box = VBox()
+        box.children.addAll(addButtons(), scrollPane)
+        root.children.add(box)
     }
 
-    private fun addButtons() {
+    private fun addButtons(): HBox {
         updateLocalButton = Button("Update Local")
         updateRemoteButton = Button("Update Remote")
-        root.children.add(HBox().apply { children.addAll(updateLocalButton, updateRemoteButton) })
-    }
-
-    private fun addListView() {
-        root.children.add(scrollPane)
+        return HBox().apply { children.addAll(updateLocalButton, updateRemoteButton) }
     }
 
     override fun render(): Pane {
