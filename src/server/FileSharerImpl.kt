@@ -11,8 +11,11 @@ class FileSharerImpl: FileSharerPOA() {
         FilesRepository.get().addEntry(Entry(clientUsername!!, files!!.toList()))
     }
 
-    override fun getFilesFromRemote(): Array<String> {
-        println("Cheguei aqui")
-        return arrayOf("AAAA", "BBBB")
+    override fun getFilesFromRemote(clientUsername: String?): Array<String> {
+        return arrayOf()
+    }
+
+    override fun getOwnerOfFile(fileName: String?): String {
+        return ""
     }
 }

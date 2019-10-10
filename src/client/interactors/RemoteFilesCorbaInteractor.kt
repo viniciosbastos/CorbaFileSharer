@@ -30,6 +30,6 @@ class RemoteFilesCorbaInteractor: IRemoteFilesInteractor {
     }
 
     override fun updateLocal(): Array<String> {
-        return fileSharer.filesFromRemote
+        return fileSharer.getFilesFromRemote(UserPreferences.get().username)
     }
 }
