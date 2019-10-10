@@ -1,24 +1,20 @@
 package server.ui
 
-import javafx.collections.FXCollections
-import javafx.collections.ObservableList
+import javafx.application.Platform
 import javafx.scene.Scene
 import javafx.scene.control.Label
 import javafx.scene.control.ListView
 import javafx.scene.control.ScrollPane
-import javafx.scene.layout.GridPane
-import javafx.scene.layout.HBox
-import javafx.scene.layout.Pane
-import javafx.scene.layout.RowConstraints
+import javafx.scene.layout.*
 import server.contracts.IMainContract
 import server.db.Entry
 import shared.adapters.EntryAdapter
 
 open class MainScene: IMainContract.IScene {
     private lateinit var rootElement: GridPane
-    private lateinit var listPane: ScrollPane
+    private lateinit var scrollPane: ScrollPane
+    private lateinit var clientsList: VBox
     private lateinit var listView: ListView<Pane>
-    private lateinit var entriesList: ObservableList<Pane>
 
     lateinit var titleLabel: Label
 
@@ -35,39 +31,35 @@ open class MainScene: IMainContract.IScene {
         rootElement.add(box, 0, 0)
     }
 
-    private fun addListPane() {
-        listView = ListView()
-        entriesList = FXCollections.observableArrayList()
-        listView.items = entriesList
-
-        listPane = ScrollPane().apply {
-            content = listView
+    private fun addClientListPane() {
+        clientsList = VBox().apply { styleClass.add("fs-list") }
+        scrollPane = ScrollPane().apply {
+            content = clientsList
             vbarPolicy = ScrollPane.ScrollBarPolicy.ALWAYS
         }
-        rootElement.add(listPane, 0, 1)
+        rootElement.add(scrollPane, 0, 1)
     }
 
     override fun render(): Scene {
         createRootElement()
         addHeader()
-        addListPane()
+        addClientListPane()
         return Scene(rootElement, 1200.0, 600.0).apply { stylesheets.add("server/ui/styles/main.css") }
     }
 
-    private fun createClientPane(entry: Entry) {
-        entriesList.add(EntryAdapter(entry).pane)
-    }
-
-    override fun addClient(entry: Entry) {
-        println("OLHA EU AQUI")
+    private fun addClientToList(entry: Entry) {
+        Platform.runLater { clientsList.children.add(EntryAdapter(entry).pane) }
     }
 
     override fun showClientsFiles(index: Int) {
-
+        TODO("Open sublist to each client when name is clicked in list")
     }
 
     override fun addEntries(entries: List<Entry>) {
-        entriesList.clear()
-        entries.forEach { createClientPane(it) }
+        entries.forEach { addClientToList(it) }
+    }
+
+    override fun addEntry(entry: Entry) {
+        TODO("Add Single Entry")
     }
 }

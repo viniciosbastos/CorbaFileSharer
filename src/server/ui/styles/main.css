@@ -1,3 +1,20 @@
 .label {
     -fx-font-size: 24px;
 }
+
+.fs-list {
+    -fx-pref-width: 1200px;
+    -fx-padding: 10px
+}
+
+.fs-list:empty {
+    -fx-opacity: 0;
+}
+
+.fs-hidden{
+    visibility: hidden;
+}
+
+.list-cell:empty {
+    -fx-opacity: 0;
+}

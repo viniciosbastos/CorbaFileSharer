@@ -9,7 +9,7 @@ interface IMainContract {
 
     interface IScene: IBaseScene {
         fun addEntries(entries: List<Entry>)
-        fun addClient(entry: Entry)
+        fun addEntry(entry: Entry)
         fun showClientsFiles(index: Int)
     }
 
