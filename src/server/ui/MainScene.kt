@@ -14,7 +14,7 @@ open class MainScene: IMainContract.IScene {
     private lateinit var rootElement: GridPane
     private lateinit var scrollPane: ScrollPane
     private lateinit var clientsList: VBox
-    private lateinit var listView: ListView<Pane>
+    private val entryAdapter = EntryAdapter().apply { styleClass.add("fs-list") }
 
     lateinit var titleLabel: Label
 
@@ -26,7 +26,7 @@ open class MainScene: IMainContract.IScene {
 
     private fun addHeader() {
         val box = HBox()
-        titleLabel = Label("FileSharer")
+        titleLabel = Label("FileSharer").apply { styleClass.add("fs-title") }
         box.children.addAll(titleLabel)
         rootElement.add(box, 0, 0)
     }
@@ -34,8 +34,9 @@ open class MainScene: IMainContract.IScene {
     private fun addClientListPane() {
         clientsList = VBox().apply { styleClass.add("fs-list") }
         scrollPane = ScrollPane().apply {
-            content = clientsList
+            content = entryAdapter
             vbarPolicy = ScrollPane.ScrollBarPolicy.ALWAYS
+            hbarPolicy = ScrollPane.ScrollBarPolicy.NEVER
         }
         rootElement.add(scrollPane, 0, 1)
     }
@@ -47,16 +48,12 @@ open class MainScene: IMainContract.IScene {
         return Scene(rootElement, 1200.0, 600.0).apply { stylesheets.add("server/ui/styles/main.css") }
     }
 
-    private fun addClientToList(entry: Entry) {
-        Platform.runLater { clientsList.children.add(EntryAdapter(entry).pane) }
-    }
-
     override fun showClientsFiles(index: Int) {
         TODO("Open sublist to each client when name is clicked in list")
     }
 
     override fun addEntries(entries: List<Entry>) {
-        entries.forEach { addClientToList(it) }
+        Platform.runLater { entryAdapter.submitList(entries) }
     }
 
     override fun addEntry(entry: Entry) {

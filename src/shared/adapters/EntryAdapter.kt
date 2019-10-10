@@ -1,27 +1,55 @@
 package shared.adapters
 
-import javafx.collections.FXCollections
 import javafx.scene.control.Label
-import javafx.scene.control.ListView
 import javafx.scene.layout.Pane
 import javafx.scene.layout.VBox
 import server.db.Entry
 
-class EntryAdapter constructor(private val entry: Entry) {
-    private val _root = Pane()
-    private val filesListView = ListView<String>()
-    private val filesList = FXCollections.observableArrayList<String>(entry.filesList)
+class EntryAdapter: VBox() {
+    private var entries: List<Entry> = mutableListOf()
 
-    init {
-        filesListView.items = filesList
+    private fun initList() {
+        children.clear()
+        entries.forEach {
+            children.add(View(it).pane)
+        }
     }
 
-    val pane: Pane
-        get() = createPane()
+    fun submitList(entries: List<Entry>) {
+        this.entries = entries
+        initList()
+    }
 
-    private fun createPane(): Pane {
-        val box = VBox()
-        box.children.addAll(Label(entry.clientUsername), filesListView)
-        return _root.apply { children.add(box) }
+    class View constructor(private val entry: Entry){
+        private val _root = VBox()
+        private val _filesList = VBox().apply {
+            styleClass.add("fs-hidden")
+        }
+
+        init {
+            _root.children.add(_filesList)
+        }
+
+        val pane: Pane
+            get() = bindData()
+
+        private fun bindData(): Pane {
+            _root.children.add(0, Label(entry.clientUsername).apply {
+                styleClass.addAll("fs-list-title", "fs-label-padding")
+                setOnMouseClicked { defaultClickAction() }
+            } )
+            entry.filesList.forEach {
+                _filesList.children.add(Label(it).apply {
+                    styleClass.addAll("fs-list-item", "fs-label-padding")
+                })
+            }
+            return _root
+        }
+
+        private fun defaultClickAction()  {
+            if (_filesList.styleClass.contains("fs-hidden")) _filesList.styleClass.remove("fs-hidden")
+            else _filesList.styleClass.add("fs-hidden")
+        }
+
     }
 }

@@ -1,9 +1,32 @@
-.label {
+.fs-title {
     -fx-font-size: 24px;
 }
 
+.fs-label-padding {
+    -fx-padding: 5px;
+}
+
+.fs-list-title {
+    -fx-font-size: 18px;
+    -fx-pref-width: 1180px;
+    -fx-background-color: darkgrey;
+}
+
+.fs-list-title: hover {
+    -fx-background-color: gray;
+}
+
+.fs-list-item {
+    -fx-font-size: 14px;
+    -fx-pref-width: 1180px;
+}
+
+.fs-list-item: hover {
+    -fx-background-color: lightgray;
+}
+
 .fs-list {
-    -fx-pref-width: 1200px;
+    -fx-pref-width: 1180px;
     -fx-padding: 10px
 }
 
