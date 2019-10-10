@@ -18,6 +18,10 @@ open class SettingsPane constructor(private val owner: Window): ISettingsContrac
     lateinit var searchButton: Button
     lateinit var saveButton: Button
 
+    init {
+        addForm()
+    }
+
     private fun addForm() {
         val grid = GridPane()
         username = TextField()
@@ -39,7 +43,6 @@ open class SettingsPane constructor(private val owner: Window): ISettingsContrac
     }
 
     override fun render(): Pane {
-        addForm()
         return root
     }
 

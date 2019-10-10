@@ -21,6 +21,8 @@ class FilesPane: IFilesContract.IView{
     init {
         listView.items = filesList
         scrollPane.content = listView
+        addListView()
+        addButtons()
     }
 
     private fun addButtons() {
@@ -34,8 +36,6 @@ class FilesPane: IFilesContract.IView{
     }
 
     override fun render(): Pane {
-        addListView()
-        addButtons()
         return root
     }
 
