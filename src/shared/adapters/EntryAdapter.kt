@@ -1,4 +1,4 @@
-package server.ui
+package shared.adapters
 
 import javafx.collections.FXCollections
 import javafx.scene.control.Label

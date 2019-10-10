@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane
 import javafx.scene.layout.RowConstraints
 import server.contracts.IMainContract
 import server.db.Entry
+import shared.adapters.EntryAdapter
 
 open class MainScene: IMainContract.IScene {
     private lateinit var rootElement: GridPane
