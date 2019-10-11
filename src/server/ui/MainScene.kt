@@ -33,7 +33,7 @@ open class MainScene: IMainContract.IScene {
     private fun addClientListPane() {
         scrollPane = ScrollPane().apply {
             content = entryAdapter
-            vbarPolicy = ScrollPane.ScrollBarPolicy.ALWAYS
+            vbarPolicy = ScrollPane.ScrollBarPolicy.AS_NEEDED
             hbarPolicy = ScrollPane.ScrollBarPolicy.NEVER
         }
         rootElement.add(scrollPane, 0, 1)
