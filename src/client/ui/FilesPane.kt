@@ -33,9 +33,12 @@ class FilesPane: IFilesContract.IView{
     }
 
     private fun addButtons(): HBox {
-        updateLocalButton = Button("Update Local")
-        updateRemoteButton = Button("Update Remote")
-        return HBox().apply { children.addAll(updateLocalButton, updateRemoteButton) }
+        updateLocalButton = Button("Update Local").apply { styleClass.add("fs-custom-button") }
+        updateRemoteButton = Button("Update Remote").apply { styleClass.add("fs-custom-button") }
+        return HBox().apply {
+            children.addAll(updateLocalButton, updateRemoteButton)
+            styleClass.add("fs-button-box")
+        }
     }
 
     override fun render(): Pane {

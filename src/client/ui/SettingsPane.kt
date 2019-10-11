@@ -17,7 +17,7 @@ class SettingsPane constructor(private val owner: Window): ISettingsContract.IVi
         isEditable = false
         promptText = "Click to select shared folder"
     }
-    val saveButton = Button("Save").apply { styleClass.add("fs-custom-button") }
+    val saveButton = Button("Save").apply { styleClass.addAll("fs-custom-button", "fs-infinity-width") }
 
     init {
         loadUserPreferences()

@@ -31,10 +31,17 @@
 
 .fs-custom-button {
 	-fx-background-color: white;
-	-fx-pref-width: infinity;
 	-fx-pref-height: 20px;
 }
 
 .fs-custom-button:hover {
 	-fx-background-color: rgb(0, 122, 204) ;
+}
+
+.fs-infinity-width {
+	-fx-pref-width: infinity;
+}
+
+.fs-button-box {
+    -fx-alignment: center-right;
 }
