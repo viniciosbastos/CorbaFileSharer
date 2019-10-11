@@ -9,7 +9,7 @@ class SettingsPresenter constructor(private val owner: Window): ISettingsContrac
     override val view = SettingsPane(owner)
 
     override fun setListeners() {
-        view.searchButton.setOnMouseClicked { chooseFolder() }
+        view.folderPath.setOnMouseClicked { chooseFolder() }
         view.saveButton.setOnMouseClicked { save() }
     }
 
