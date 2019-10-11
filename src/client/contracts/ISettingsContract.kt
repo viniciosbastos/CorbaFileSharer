@@ -7,7 +7,7 @@ import java.io.File
 interface ISettingsContract {
 
     interface IView: IBasePane {
-        fun chooseFolder(): File
+        fun chooseFolder(): File?
         fun showFolderPath(path: String)
     }
 

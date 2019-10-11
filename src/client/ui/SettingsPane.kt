@@ -10,7 +10,7 @@ import javafx.stage.DirectoryChooser
 import javafx.stage.Window
 import java.io.File
 
-open class SettingsPane constructor(private val owner: Window): ISettingsContract.IView {
+class SettingsPane constructor(private val owner: Window): ISettingsContract.IView {
     override val root = VBox().apply { styleClass.add("fs-grid") }
     val username = TextField()
     val folderPath = TextField().apply {
@@ -40,7 +40,7 @@ open class SettingsPane constructor(private val owner: Window): ISettingsContrac
         return root
     }
 
-    override fun chooseFolder(): File {
+    override fun chooseFolder(): File? {
         return DirectoryChooser().showDialog(owner)
     }
 

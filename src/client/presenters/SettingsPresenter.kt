@@ -15,7 +15,7 @@ class SettingsPresenter constructor(private val owner: Window): ISettingsContrac
 
     override fun chooseFolder() {
         val file = view.chooseFolder()
-        view.showFolderPath(file.absolutePath)
+        file?.let { view.showFolderPath(it.absolutePath) }
     }
 
     override fun save() {
