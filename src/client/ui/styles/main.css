@@ -1,3 +1,18 @@
-.label {
+.fs-title {
     -fx-font-size: 24px;
+}
+
+.fs-list-item {
+    -fx-font-size: 14px;
+    -fx-pref-width: 1180px;
+}
+
+.fs-list-item: hover {
+    -fx-background-color: lightgray;
+}
+
+.fs-list {
+    -fx-pref-width: 1200px;
+    -fx-pref-height: 500px;
+    -fx-padding: 10px
 }

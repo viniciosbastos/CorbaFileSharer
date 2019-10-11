@@ -30,14 +30,6 @@
     -fx-padding: 10px
 }
 
-.fs-list:empty {
-    -fx-opacity: 0;
-}
-
 .fs-hidden{
     visibility: hidden;
-}
-
-.list-cell:empty {
-    -fx-opacity: 0;
 }

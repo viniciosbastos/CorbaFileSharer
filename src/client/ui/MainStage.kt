@@ -38,8 +38,8 @@ class MainStage: Application() {
 
         private fun addHeader() {
             val box = HBox()
-            titleLabel = Label("FileSharer")
-            settingsLabel = Label("Settings")
+            titleLabel = Label("FileSharer").apply { styleClass.add("fs-title") }
+            settingsLabel = Label("Settings").apply { styleClass.add("fs-title") }
             box.children.addAll(titleLabel, settingsLabel)
             rootElement.add(box, 0, 0)
         }

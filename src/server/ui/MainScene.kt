@@ -13,7 +13,6 @@ import shared.adapters.EntryAdapter
 open class MainScene: IMainContract.IScene {
     private lateinit var rootElement: GridPane
     private lateinit var scrollPane: ScrollPane
-    private lateinit var clientsList: VBox
     private val entryAdapter = EntryAdapter().apply { styleClass.add("fs-list") }
 
     lateinit var titleLabel: Label
@@ -32,7 +31,6 @@ open class MainScene: IMainContract.IScene {
     }
 
     private fun addClientListPane() {
-        clientsList = VBox().apply { styleClass.add("fs-list") }
         scrollPane = ScrollPane().apply {
             content = entryAdapter
             vbarPolicy = ScrollPane.ScrollBarPolicy.ALWAYS
