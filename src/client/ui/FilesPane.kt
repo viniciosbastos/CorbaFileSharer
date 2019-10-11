@@ -18,7 +18,7 @@ class FilesPane: IFilesContract.IView{
     lateinit var updateRemoteButton: Button
 
     private val scrollPane = ScrollPane()
-    private val filesAdapter = FilesAdapter().apply { styleClass.add("fs-list") }
+    private val filesAdapter = FilesAdapter().apply { styleClass.addAll("fs-list", "fs-full-width") }
 
     init {
         scrollPane.apply {

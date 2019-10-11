@@ -5,12 +5,10 @@ import client.interactors.RemoteFilesCorbaInteractor
 import client.presenters.FilesPresenter
 import client.presenters.SettingsPresenter
 import javafx.application.Application
+import javafx.application.Platform
 import javafx.scene.Scene
 import javafx.scene.control.Label
-import javafx.scene.layout.GridPane
-import javafx.scene.layout.HBox
-import javafx.scene.layout.Pane
-import javafx.scene.layout.RowConstraints
+import javafx.scene.layout.*
 import javafx.stage.Stage
 import javafx.stage.Window
 
@@ -37,10 +35,12 @@ class MainStage: Application() {
         }
 
         private fun addHeader() {
-            val box = HBox()
-            titleLabel = Label("FileSharer").apply { styleClass.add("fs-title") }
-            settingsLabel = Label("Settings").apply { styleClass.add("fs-title") }
-            box.children.addAll(titleLabel, settingsLabel)
+            titleLabel = Label("FileSharer").apply { styleClass.addAll("fs-title", "fs-label-padding") }
+            settingsLabel = Label("Settings").apply { styleClass.addAll("fs-title", "fs-label-padding") }
+            val box = BorderPane().apply {
+                left = titleLabel
+                right = settingsLabel
+            }
             rootElement.add(box, 0, 0)
         }
 

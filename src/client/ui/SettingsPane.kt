@@ -4,15 +4,13 @@ import client.contracts.ISettingsContract
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
-import javafx.scene.layout.GridPane
-import javafx.scene.layout.HBox
-import javafx.scene.layout.Pane
+import javafx.scene.layout.*
 import javafx.stage.DirectoryChooser
 import javafx.stage.Window
 import java.io.File
 
 open class SettingsPane constructor(private val owner: Window): ISettingsContract.IView {
-    override val root: Pane = Pane()
+    override val root = BorderPane().apply { styleClass.addAll("fs-full-width") }
     lateinit var username: TextField
     lateinit var folderPath: TextField
     lateinit var searchButton: Button
@@ -23,7 +21,9 @@ open class SettingsPane constructor(private val owner: Window): ISettingsContrac
     }
 
     private fun addForm() {
-        val grid = GridPane()
+        val grid = GridPane().apply {
+            styleClass.add("fs-grid")
+        }
         username = TextField()
         val box = HBox()
         folderPath = TextField()
@@ -39,7 +39,7 @@ open class SettingsPane constructor(private val owner: Window): ISettingsContrac
             add(box, 0, 3)
             add(saveButton, 0, 4)
         }
-        root.children.add(grid)
+        root.center = grid
     }
 
     override fun render(): Pane {
@@ -47,9 +47,7 @@ open class SettingsPane constructor(private val owner: Window): ISettingsContrac
     }
 
     override fun chooseFolder(): File {
-        val fileChooser = DirectoryChooser()
-
-        return fileChooser.showDialog(owner)
+        return DirectoryChooser().showDialog(owner)
     }
 
     override fun showFolderPath(path: String) {

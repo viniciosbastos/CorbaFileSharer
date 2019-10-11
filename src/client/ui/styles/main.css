@@ -2,6 +2,10 @@
     -fx-font-size: 24px;
 }
 
+.fs-label-padding {
+    -fx-padding: 5px;
+}
+
 .fs-list-item {
     -fx-font-size: 14px;
     -fx-pref-width: 1180px;
@@ -11,8 +15,15 @@
     -fx-background-color: lightgray;
 }
 
-.fs-list {
+.fs-full-width {
     -fx-pref-width: 1200px;
+}
+
+.fs-list {
     -fx-pref-height: 500px;
     -fx-padding: 10px
+}
+
+.fs-grid {
+    -fx-alignment: center;
 }
