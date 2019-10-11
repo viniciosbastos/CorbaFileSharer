@@ -45,7 +45,7 @@ class MainStage: Application() {
         }
 
         private fun addNavPane() {
-            navPane = Pane()
+            navPane = StackPane().apply { styleClass.add("fs-full-width") }
             rootElement.add(navPane, 0, 1)
         }
 

@@ -10,36 +10,20 @@ import javafx.stage.Window
 import java.io.File
 
 open class SettingsPane constructor(private val owner: Window): ISettingsContract.IView {
-    override val root = BorderPane().apply { styleClass.addAll("fs-full-width") }
-    lateinit var username: TextField
-    lateinit var folderPath: TextField
-    lateinit var searchButton: Button
-    lateinit var saveButton: Button
+    override val root = VBox().apply { styleClass.add("fs-grid") }
+    val username = TextField()
+    val folderPath = TextField().apply { isEditable = false }
+    val searchButton = Button("...")
+    val saveButton = Button("Save").apply { styleClass.add("fs-custom-button") }
 
     init {
-        addForm()
-    }
-
-    private fun addForm() {
-        val grid = GridPane().apply {
-            styleClass.add("fs-grid")
-        }
-        username = TextField()
-        val box = HBox()
-        folderPath = TextField()
-        folderPath.isEditable = false
-        searchButton = Button("...")
-        saveButton = Button("Save")
-
-        box.children.addAll(folderPath, searchButton)
-        grid.apply{
-            add(Label("Nome do Usuário"),0, 0)
-            add(username, 0, 1)
-            add(Label("Pasta Compartilhada"),0, 2)
-            add(box, 0, 3)
-            add(saveButton, 0, 4)
-        }
-        root.center = grid
+        root.children.addAll(
+            Label("Nome do Usuário"),
+            username,
+            Label("Pasta Compartilhada"),
+            folderPath,
+            saveButton
+        )
     }
 
     override fun render(): Pane {
