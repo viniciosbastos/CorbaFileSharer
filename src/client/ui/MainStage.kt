@@ -1,11 +1,10 @@
 package client.ui
 
 import client.contracts.IMainContract
-import client.interactors.RemoteFilesCorbaInteractor
+import client.interactors.FilesInteractor
 import client.presenters.FilesPresenter
 import client.presenters.SettingsPresenter
 import javafx.application.Application
-import javafx.application.Platform
 import javafx.scene.Scene
 import javafx.scene.control.Label
 import javafx.scene.layout.*
@@ -93,7 +92,7 @@ class MainStage: Application() {
 
         override fun showHomeView() {
             if (filesPresenter == null)
-                filesPresenter = FilesPresenter(RemoteFilesCorbaInteractor())
+                filesPresenter = FilesPresenter(FilesInteractor())
 
             filesPresenter?.let { view.showHomeView(it.render()) }
         }

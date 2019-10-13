@@ -2,6 +2,7 @@ package client.presenters
 
 import client.UserPreferences
 import client.contracts.ISettingsContract
+import client.services.P2PServerService
 import client.ui.SettingsPane
 import javafx.stage.Window
 
@@ -23,6 +24,6 @@ class SettingsPresenter constructor(private val owner: Window): ISettingsContrac
             sharedFolder = view.folderPath.text
             username = view.username.text
         }
-
+        P2PServerService.get().init()
     }
 }

@@ -1,8 +1,14 @@
-module FileSharerServer {
-    typedef sequence<string> StringList;
-    interface FileSharer {
-        oneway void updateRemoteFiles(in string clientUsername, in StringList files);
-        StringList getFilesFromRemote(in string clientUsername);
+module FileSharer {
+    typedef sequence<string> StringArray;
+    typedef sequence<octet> ByteArray;
+
+    interface Server {
+        oneway void updateRemoteFiles(in string clientUsername, in StringArray files);
+        StringArray getFilesFromRemote(in string clientUsername);
         string getOwnerOfFile(in string fileName);
+    };
+
+    interface P2P {
+        ByteArray downloadFile(in string fileName);
     };
 };

@@ -3,10 +3,9 @@ package server
 
 import server.db.Entry
 import server.db.FilesRepository
-import shared.FileSharerServer.FileSharerPOA
+import shared.FileSharer.ServerPOA
 
-
-class FileSharerImpl: FileSharerPOA() {
+class ServerImpl: ServerPOA() {
     override fun updateRemoteFiles(clientUsername: String?, files: Array<out String>?) {
         FilesRepository.get().addEntry(Entry(clientUsername!!, files!!.toList()))
     }

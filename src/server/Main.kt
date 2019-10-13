@@ -13,7 +13,7 @@ fun init() {
     val naming = NamingContextHelper.narrow(orb.resolve_initial_references("NameService"))
 
     naming.rebind(arrayOf(NameComponent("FileSharer", "FileSharerServer")), rootPoa.servant_to_reference(
-        FileSharerImpl()
+        ServerImpl()
     ))
 
     rootPoa.the_POAManager().activate()
