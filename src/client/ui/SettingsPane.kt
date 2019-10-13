@@ -2,6 +2,7 @@ package client.ui
 
 import client.UserPreferences
 import client.contracts.ISettingsContract
+import javafx.scene.control.Alert
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
@@ -46,5 +47,14 @@ class SettingsPane constructor(private val owner: Window): ISettingsContract.IVi
 
     override fun showFolderPath(path: String) {
         folderPath.text = path
+    }
+
+    override fun showSavedAlert() {
+        Alert(Alert.AlertType.INFORMATION).apply {
+            title = "Settings Saved"
+            headerText = null
+            contentText = "Settings saved successfully."
+            showAndWait()
+        }
     }
 }

@@ -27,5 +27,6 @@ class FilesPresenter
     override fun onDownloadClicked() {
         val selectedFile = view.selectedFile!!.text
         interactor.downloadFile(selectedFile)
+        view.showDownloadedAlert()
     }
 }

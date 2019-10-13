@@ -3,10 +3,7 @@ package client.ui
 import client.contracts.IFilesContract
 import javafx.application.Platform
 import javafx.collections.FXCollections
-import javafx.scene.control.Button
-import javafx.scene.control.Label
-import javafx.scene.control.ListView
-import javafx.scene.control.ScrollPane
+import javafx.scene.control.*
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
 import javafx.scene.layout.VBox
@@ -38,7 +35,7 @@ class FilesPane: IFilesContract.IView{
     private fun addButtons(): HBox {
         downloadButton = Button("Download").apply { styleClass.add("fs-custom-button") }
         updateLocalButton = Button("Get Files from Server").apply { styleClass.add("fs-custom-button") }
-        updateRemoteButton = Button("Update Server").apply { styleClass.add("fs-custom-button") }
+        updateRemoteButton = Button("Send Files to Server").apply { styleClass.add("fs-custom-button") }
         return HBox().apply {
             children.addAll(downloadButton, updateLocalButton, updateRemoteButton)
             styleClass.add("fs-button-box")
@@ -57,5 +54,14 @@ class FilesPane: IFilesContract.IView{
         selectedFile?.let { it.styleClass.remove("fs-active") }
         selectedFile = listItem
         listItem.styleClass.add("fs-active")
+    }
+
+    override fun showDownloadedAlert() {
+        Alert(Alert.AlertType.INFORMATION).apply {
+            title = "Download"
+            headerText = null
+            contentText = "File downloaded."
+            showAndWait()
+        }
     }
 }

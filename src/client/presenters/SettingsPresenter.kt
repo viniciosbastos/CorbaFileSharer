@@ -25,5 +25,6 @@ class SettingsPresenter constructor(private val owner: Window): ISettingsContrac
             username = view.username.text
         }
         P2PServerService.get().init()
+        view.showSavedAlert()
     }
 }

@@ -9,6 +9,7 @@ interface IFilesContract {
     interface IView: IBasePane {
         fun showFilesList(files: Array<String>)
         fun onListItemClicked(listItem: Label)
+        fun showDownloadedAlert()
     }
 
     interface IPresenter: IBasePresenter<IView> {
