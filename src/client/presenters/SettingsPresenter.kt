@@ -20,11 +20,17 @@ class SettingsPresenter constructor(private val owner: Window): ISettingsContrac
     }
 
     override fun save() {
-        UserPreferences.get().apply {
+        val userPref = UserPreferences.get()
+        userPref.apply {
             sharedFolder = view.folderPath.text
             username = view.username.text
         }
-        P2PServerService.get().init()
-        view.showSavedAlert()
+        if (userPref.isValid()) {
+            P2PServerService.get().init()
+            view.showSavedAlert()
+        }
+        else {
+            view.showIncompleteInfoAlert()
+        }
     }
 }

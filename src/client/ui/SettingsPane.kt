@@ -57,4 +57,13 @@ class SettingsPane constructor(private val owner: Window): ISettingsContract.IVi
             showAndWait()
         }
     }
+
+    override fun showIncompleteInfoAlert() {
+        Alert(Alert.AlertType.ERROR).apply {
+            title = "Incomplete Settings"
+            headerText = null
+            contentText = "User and/or SharedFolder are missing. Cannot start P2PServer."
+            showAndWait()
+        }
+    }
 }

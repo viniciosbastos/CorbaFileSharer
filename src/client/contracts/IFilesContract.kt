@@ -10,11 +10,14 @@ interface IFilesContract {
         fun showFilesList(files: Array<String>)
         fun onListItemClicked(listItem: Label)
         fun showDownloadedAlert()
+        fun showFilesLoadedAlert()
+        fun showNoFileSelectedAlert()
+        fun showConnectionErrorAlert()
     }
 
     interface IPresenter: IBasePresenter<IView> {
         fun onSendFilesToServerClicked()
-        fun onUpdateLocalClicked()
+        fun getFilesFromServer()
         fun onDownloadClicked()
     }
 }

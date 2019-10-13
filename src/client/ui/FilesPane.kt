@@ -64,4 +64,30 @@ class FilesPane: IFilesContract.IView{
             showAndWait()
         }
     }
+
+    override fun showFilesLoadedAlert() {
+        Alert(Alert.AlertType.INFORMATION).apply {
+            title = "Files Loaded"
+            headerText = null
+            contentText = "All Files loaded."
+            showAndWait()
+        }
+    }
+
+    override fun showNoFileSelectedAlert() {
+        Alert(Alert.AlertType.WARNING).apply {
+            title = "No File Selected"
+            headerText = null
+            contentText = "No File was selected. Please choose one before trying to download."
+            showAndWait()
+        }
+    }
+
+    override fun showConnectionErrorAlert() {
+        Alert(Alert.AlertType.WARNING).apply {
+            title = "Connection Error"
+            contentText = "Error trying to establish connection."
+            showAndWait()
+        }
+    }
 }

@@ -10,6 +10,7 @@ interface ISettingsContract {
         fun chooseFolder(): File?
         fun showFolderPath(path: String)
         fun showSavedAlert()
+        fun showIncompleteInfoAlert()
     }
 
     interface IPresenter: IBasePresenter<IView> {
