@@ -11,12 +11,17 @@ class FilesRepository private constructor(): Observable() {
         notifyObservers()
     }
 
-    fun allEntries(): List<Entry> {
+    fun getAllEntries(): List<Entry> {
         return clients.toList()
     }
 
-    fun entriesExceptUsername(username: String): List<String> {
+    fun getAllEntriesExceptFromUser(username: String): List<String> {
         return clients.filter { it.clientUsername != username }.flatMap { it.filesList }
+    }
+
+    fun getFileOwnerUsername(fileName: String): String {
+        val entry = clients.find { it.filesList.contains(fileName) }
+        return entry?.clientUsername ?: ""
     }
 
     companion object {

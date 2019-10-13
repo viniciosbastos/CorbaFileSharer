@@ -12,11 +12,11 @@ class FileSharerImpl: FileSharerPOA() {
     }
 
     override fun getFilesFromRemote(clientUsername: String?): Array<String> {
-        val list = FilesRepository.get().entriesExceptUsername(clientUsername!!)
+        val list = FilesRepository.get().getAllEntriesExceptFromUser(clientUsername!!)
         return list.toTypedArray()
     }
 
     override fun getOwnerOfFile(fileName: String?): String {
-        return ""
+        return FilesRepository.get().getFileOwnerUsername(fileName!!)
     }
 }

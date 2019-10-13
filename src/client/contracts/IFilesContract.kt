@@ -1,5 +1,6 @@
 package client.contracts
 
+import javafx.scene.control.Label
 import shared.IBasePane
 import shared.IBasePresenter
 
@@ -7,10 +8,12 @@ interface IFilesContract {
 
     interface IView: IBasePane {
         fun showFilesList(files: Array<String>)
+        fun onListItemClicked(listItem: Label)
     }
 
     interface IPresenter: IBasePresenter<IView> {
-        fun sendFilesToServer()
-        fun updateLocalList()
+        fun onSendFilesToServerClicked()
+        fun onUpdateLocalClicked()
+        fun onDownloadClicked()
     }
 }

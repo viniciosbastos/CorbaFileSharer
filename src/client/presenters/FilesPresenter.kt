@@ -10,16 +10,22 @@ class FilesPresenter
     override val view = FilesPane()
 
     override fun setListeners() {
-        view.updateLocalButton.setOnMouseClicked { updateLocalList() }
-        view.updateRemoteButton.setOnMouseClicked { sendFilesToServer() }
+        view.downloadButton.setOnMouseClicked { onDownloadClicked() }
+        view.updateLocalButton.setOnMouseClicked { onUpdateLocalClicked() }
+        view.updateRemoteButton.setOnMouseClicked { onSendFilesToServerClicked() }
     }
 
-    override fun sendFilesToServer() {
+    override fun onSendFilesToServerClicked() {
         interactor.updateRemote()
     }
 
-    override fun updateLocalList() {
+    override fun onUpdateLocalClicked() {
         val files = interactor.updateLocal()
         view.showFilesList(files)
+    }
+
+    override fun onDownloadClicked() {
+        val selectedFile = view.selectedFile!!.text
+        interactor.downloadFile(selectedFile)
     }
 }

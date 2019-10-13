@@ -32,4 +32,9 @@ class RemoteFilesCorbaInteractor: IRemoteFilesInteractor {
     override fun updateLocal(): Array<String> {
         return fileSharer.getFilesFromRemote(UserPreferences.get().username)
     }
+
+    override fun downloadFile(fileName: String) {
+        val owner = fileSharer.getOwnerOfFile(fileName)
+        println("Owner: $owner")
+    }
 }
