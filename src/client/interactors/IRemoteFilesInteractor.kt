@@ -2,6 +2,6 @@ package client.interactors
 
 interface IRemoteFilesInteractor {
     fun updateRemote()
-    fun updateLocal(): Array<String>
+    fun getFilesFromServer(search: String = ""): Array<String>
     fun downloadFile(fileName: String)
 }

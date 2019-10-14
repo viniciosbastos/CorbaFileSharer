@@ -10,8 +10,8 @@ class ServerImpl: ServerPOA() {
         FilesRepository.get().addEntry(Entry(clientUsername!!, files!!.toList()))
     }
 
-    override fun getFilesFromRemote(clientUsername: String?): Array<String> {
-        val list = FilesRepository.get().getAllEntriesExceptFromUser(clientUsername!!)
+    override fun getFilesFromRemote(clientUsername: String?, search: String): Array<String> {
+        val list = FilesRepository.get().getAllEntriesExceptFromUser(clientUsername!!, search)
         return list.toTypedArray()
     }
 

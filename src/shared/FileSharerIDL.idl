@@ -4,7 +4,7 @@ module FileSharer {
 
     interface Server {
         oneway void updateRemoteFiles(in string clientUsername, in StringArray files);
-        StringArray getFilesFromRemote(in string clientUsername);
+        StringArray getFilesFromRemote(in string clientUsername, in string search);
         string getOwnerOfFile(in string fileName);
     };
 

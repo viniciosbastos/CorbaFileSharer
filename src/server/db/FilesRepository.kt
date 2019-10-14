@@ -15,8 +15,11 @@ class FilesRepository private constructor(): Observable() {
         return clients.toList()
     }
 
-    fun getAllEntriesExceptFromUser(username: String): List<String> {
-        return clients.filter { it.clientUsername != username }.flatMap { it.filesList }
+    fun getAllEntriesExceptFromUser(username: String, search: String): List<String> {
+        return clients
+            .filter { it.clientUsername != username }
+            .flatMap { it.filesList }
+            .filter { it.contains(search, ignoreCase = true) || it.endsWith(".$search", ignoreCase = true) }
     }
 
     fun getFileOwnerUsername(fileName: String): String {

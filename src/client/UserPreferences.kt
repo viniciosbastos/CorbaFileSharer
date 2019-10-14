@@ -5,7 +5,7 @@ class UserPreferences {
     var username: String = ""
 
     fun isValid(): Boolean {
-        return (sharedFolder != "" && username != "")
+        return (sharedFolder.isNotBlank() && username.isNotBlank())
     }
 
     companion object {

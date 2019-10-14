@@ -2,20 +2,21 @@ package client.ui
 
 import client.contracts.IFilesContract
 import javafx.application.Platform
-import javafx.collections.FXCollections
 import javafx.scene.control.*
-import javafx.scene.layout.HBox
-import javafx.scene.layout.Pane
-import javafx.scene.layout.VBox
+import javafx.scene.layout.*
 import shared.adapters.FilesAdapter
 
 class FilesPane: IFilesContract.IView{
     override val root: Pane = Pane()
 
-    lateinit var downloadButton: Button
-    lateinit var updateLocalButton: Button
-    lateinit var updateRemoteButton: Button
+    val downloadButton = Button("Download").apply { styleClass.add("fs-custom-button") }
+    val updateLocalButton = Button("Get Files from Server").apply { styleClass.add("fs-custom-button") }
+    val updateRemoteButton = Button("Send Files to Server").apply { styleClass.add("fs-custom-button") }
+    val searchButton = Button("Search").apply { styleClass.add("fs-custom-button") }
 
+    val searchField = TextField().apply {
+        promptText = "Name/Extension to search"
+    }
     private val scrollPane = ScrollPane()
     private val filesAdapter = FilesAdapter(this::onListItemClicked).apply { styleClass.addAll("fs-list", "fs-full-width") }
     var selectedFile: Label? = null
@@ -28,14 +29,23 @@ class FilesPane: IFilesContract.IView{
         }
 
         val box = VBox()
-        box.children.addAll(addButtons(), scrollPane)
+        val header = BorderPane().apply {
+            left = addSearchBox()
+            right = addButtonsBox()
+            styleClass.add("fs-full-width")
+        }
+        box.children.addAll(header, scrollPane)
         root.children.add(box)
     }
 
-    private fun addButtons(): HBox {
-        downloadButton = Button("Download").apply { styleClass.add("fs-custom-button") }
-        updateLocalButton = Button("Get Files from Server").apply { styleClass.add("fs-custom-button") }
-        updateRemoteButton = Button("Send Files to Server").apply { styleClass.add("fs-custom-button") }
+    private fun addSearchBox(): HBox {
+        return HBox().apply {
+            children.addAll(searchField, searchButton)
+            styleClass.add("fs-search-box")
+        }
+    }
+
+    private fun addButtonsBox(): HBox {
         return HBox().apply {
             children.addAll(downloadButton, updateLocalButton, updateRemoteButton)
             styleClass.add("fs-button-box")
@@ -65,11 +75,11 @@ class FilesPane: IFilesContract.IView{
         }
     }
 
-    override fun showFilesLoadedAlert() {
+    override fun showNoFilesFoundedAlert() {
         Alert(Alert.AlertType.INFORMATION).apply {
             title = "Files Loaded"
             headerText = null
-            contentText = "All Files loaded."
+            contentText = "No files founded."
             showAndWait()
         }
     }

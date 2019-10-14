@@ -17,8 +17,8 @@ class FilesInteractor: IRemoteFilesInteractor {
         server.updateRemoteFiles(userPreferences.username, files)
     }
 
-    override fun updateLocal(): Array<String> {
-        return server.getFilesFromRemote(UserPreferences.get().username)
+    override fun getFilesFromServer(search: String): Array<String> {
+        return server.getFilesFromRemote(UserPreferences.get().username, search)
     }
 
     override fun downloadFile(fileName: String) {
