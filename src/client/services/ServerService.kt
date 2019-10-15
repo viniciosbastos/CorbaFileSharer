@@ -6,7 +6,7 @@ import shared.FileSharer.ServerHelper
 
 
 class ServerService {
-    private val cfg = BaseCorbaCfg
+    private val cfg = BaseCorbaCfg.get()
 
     fun init(): Server {
         val obj = cfg.naming.resolve(arrayOf(NameComponent("FileSharer", "FileSharerServer")))

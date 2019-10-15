@@ -7,8 +7,9 @@ import org.omg.CosNaming.NameComponent
 import org.omg.CosNaming.NamingContextHelper
 import org.omg.PortableServer.POAHelper
 
-fun init() {
-    val orb: ORB = ORB.init(arrayOf("-ORBInitialPort", "9999", "-ORBInitialHost", "localhost"), null)
+fun init(args: Array<String>) {
+    val orb: ORB = ORB.init(args, null)
+//    val orb: ORB = ORB.init(arrayOf("-ORBInitialPort", "9999", "-ORBInitialHost", "localhost"), null)
     val rootPoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"))
     val naming = NamingContextHelper.narrow(orb.resolve_initial_references("NameService"))
 
@@ -19,6 +20,6 @@ fun init() {
     rootPoa.the_POAManager().activate()
 }
 fun main(args: Array<String>) {
-    init()
+    init(args)
     Application.launch(MainStage::class.java)
 }

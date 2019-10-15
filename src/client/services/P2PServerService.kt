@@ -5,7 +5,7 @@ import client.UserPreferences
 import org.omg.CosNaming.NameComponent
 
 class P2PServerService private constructor(){
-    private val cfg = BaseCorbaCfg
+    private val cfg = BaseCorbaCfg.get()
     private var p2pServerName: String? = null
 
     fun init() {
