@@ -94,7 +94,7 @@ class MainStage: Application() {
             if (filesPresenter == null)
                 filesPresenter = FilesPresenter(FilesInteractor())
 
-            filesPresenter?.let { view.showHomeView(it.render()) }
+            filesPresenter?.let { view.showHomeView(it.view) }
         }
 
         override fun renderScene(): Scene {

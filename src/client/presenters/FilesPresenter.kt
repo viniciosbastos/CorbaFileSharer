@@ -1,9 +1,11 @@
 package client.presenters
 
+import client.UserPreferences
 import client.contracts.IFilesContract
 import client.interactors.IRemoteFilesInteractor
 import client.ui.FilesPane
 import org.omg.CORBA.COMM_FAILURE
+import java.io.File
 
 class FilesPresenter
     constructor(private val interactor: IRemoteFilesInteractor)
@@ -11,25 +13,28 @@ class FilesPresenter
 
     override val view = FilesPane()
 
+    init{
+        setListeners()
+    }
+
     override fun setListeners() {
-        view.downloadButton.setOnMouseClicked { onDownloadClicked() }
-        view.updateLocalButton.setOnMouseClicked { onGetFilesFromServer() }
-        view.updateRemoteButton.setOnMouseClicked { onSendFilesToServerClicked() }
-        view.searchButton.setOnMouseClicked { onSearchClicked() }
+        view.getDownloadButton().setOnMouseClicked { onDownloadClicked() }
+        view.getSearchButton().setOnMouseClicked { onSearchClicked() }
+        view.getReloadServerButton().setOnMouseClicked { onUpdateClicked() }
+        view.getReloadLocalButton().setOnMouseClicked { onUpdateAndSendClicked() }
     }
 
-    override fun onSendFilesToServerClicked() {
-        try {
-            interactor.updateRemote()
-        } catch (ex: COMM_FAILURE) {
-            view.showConnectionErrorAlert()
-        }
+    override fun onUpdateAndSendClicked() {
+        val usrPref = UserPreferences.get()
+        val files = File(usrPref.sharedFolder).list()
+        view.showMyFilesList(files)
+        sendFilesToServer()
     }
 
-    override fun onGetFilesFromServer() {
+    override  fun onUpdateClicked() {
         try {
             val files = interactor.getFilesFromServer()
-            view.showFilesList(files)
+            view.showServerFilesList(files)
             if (files.isEmpty())
                 view.showNoFilesFoundedAlert()
         } catch (ex: COMM_FAILURE) {
@@ -37,26 +42,43 @@ class FilesPresenter
         }
     }
 
+    private fun sendFilesToServer() {
+        try {
+            interactor.updateRemote()
+        } catch (ex: COMM_FAILURE) {
+            view.showConnectionErrorAlert()
+        }
+    }
+
     override fun onDownloadClicked() {
-        val selectedFile = view.selectedFile
-        if (selectedFile != null) {
-            try {
-                interactor.downloadFile(selectedFile.text)
-                view.showDownloadedAlert()
-            } catch (ex: COMM_FAILURE) {
-                view.showConnectionErrorAlert()
+        val selectedFiles = view.getSelectedFiles()
+        if (selectedFiles.isNotEmpty()) {
+            view.showTransferFiles()
+            selectedFiles.forEachIndexed { index, fileName ->
+                view.showDownloadingFile(index)
+                download(fileName)
+                view.showConcludedFile(index)
             }
+            view.clearSelectedFiles()
         }
         else {
             view.showNoFileSelectedAlert()
         }
     }
 
+    private fun download(fileName: String) {
+            try {
+                interactor.downloadFile(fileName)
+            } catch (ex: COMM_FAILURE) {
+                view.showConnectionErrorAlert()
+            }
+    }
+
     override fun onSearchClicked() {
-        val toSearch = view.searchField.text.trim()
+        val toSearch = view.getSearchFieldText()
         try {
             val files = interactor.getFilesFromServer(toSearch)
-            view.showFilesList(files)
+            view.showServerFilesList(files)
             if (files.isEmpty())
                 view.showNoFilesFoundedAlert()
         } catch (ex: COMM_FAILURE) {

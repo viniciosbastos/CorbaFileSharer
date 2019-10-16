@@ -1,4 +1,5 @@
 .fs-title {
+    -fx-padding: 10px;
     -fx-font-size: 24px;
 }
 
@@ -21,7 +22,19 @@
 
 .fs-list {
     -fx-pref-height: 500px;
-    -fx-padding: 10px
+    -fx-padding: 10px;
+}
+
+.fs-padding {
+    -fx-padding: 10px;
+}
+
+.fs-files-list-container {
+    -fx-alignment: top-center;
+}
+
+.fs-files-list {
+    -fx-min-height: 350px;
 }
 
 .fs-grid {
@@ -44,11 +57,12 @@
 
 .fs-button-box {
     -fx-alignment: center-right;
+    -fx-padding: 10px;
 }
 
 .fs-search-box {
     -fx-alignment: center-left;
-    -fx-padding: 5px;
+    -fx-padding: 10px;
     -fx-spacing: 5px;
 }
 
@@ -59,3 +73,12 @@
 .fs-active: hover {
     -fx-background-color: rgb(0, 122, 204) ;
 }
+
+.fs-files-scroll-view {
+    -fx-min-height: 350px;
+}
+
+.fs-transf-files-scroll-view {
+    -fx-min-height: 100px;
+}
+

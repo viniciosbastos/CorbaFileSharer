@@ -7,18 +7,21 @@ import shared.IBasePresenter
 interface IFilesContract {
 
     interface IView: IBasePane {
-        fun showFilesList(files: Array<String>)
-        fun onListItemClicked(listItem: Label)
-        fun showDownloadedAlert()
+        fun showTransferFiles()
+        fun showMyFilesList(files: Array<String>)
+        fun showServerFilesList(files: Array<String>)
         fun showNoFilesFoundedAlert()
         fun showNoFileSelectedAlert()
         fun showConnectionErrorAlert()
+        fun showDownloadingFile(pos: Int)
+        fun showConcludedFile(pos: Int)
+        fun clearSelectedFiles()
     }
 
     interface IPresenter: IBasePresenter<IView> {
-        fun onSendFilesToServerClicked()
         fun onSearchClicked()
         fun onDownloadClicked()
-        fun onGetFilesFromServer()
+        fun onUpdateClicked()
+        fun onUpdateAndSendClicked()
     }
 }

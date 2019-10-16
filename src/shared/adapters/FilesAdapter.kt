@@ -11,6 +11,7 @@ class FilesAdapter(private val listItemOnClick: (Label) -> Unit): VBox() {
         files.forEach {
             children.add(ListItem(it, listItemOnClick).apply { styleClass.add("fs-list-item") })
         }
+        styleClass.add("fs-files-list")
     }
 
     fun submitList(files: List<String>) {

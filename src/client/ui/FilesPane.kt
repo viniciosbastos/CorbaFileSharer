@@ -1,41 +1,38 @@
 package client.ui
 
 import client.contracts.IFilesContract
-import javafx.application.Platform
 import javafx.scene.control.*
 import javafx.scene.layout.*
-import shared.adapters.FilesAdapter
 
-class FilesPane: IFilesContract.IView{
+class FilesPane: VBox(), IFilesContract.IView{
     override val root: Pane = Pane()
 
-    val downloadButton = Button("Download").apply { styleClass.add("fs-custom-button") }
-    val updateLocalButton = Button("Get Files from Server").apply { styleClass.add("fs-custom-button") }
-    val updateRemoteButton = Button("Send Files to Server").apply { styleClass.add("fs-custom-button") }
-    val searchButton = Button("Search").apply { styleClass.add("fs-custom-button") }
+    private val downloadButton = Button("Download").apply { styleClass.add("fs-custom-button") }
+    private val searchButton = Button("Search").apply { styleClass.add("fs-custom-button") }
 
-    val searchField = TextField().apply {
+    private val searchField = TextField().apply {
         promptText = "Name/Extension to search"
     }
-    private val scrollPane = ScrollPane()
-    private val filesAdapter = FilesAdapter(this::onListItemClicked).apply { styleClass.addAll("fs-list", "fs-full-width") }
-    var selectedFile: Label? = null
+    private val selectedFiles = mutableListOf<Label>()
+
+    private val filesGrid = GridPane().apply { styleClass.add("fs-padding") }
+    private val myFilesList = FilesListPane("My Files","Update and Send")
+    private val listItemClicked = {item: Label -> onListItemClicked(item)}
+    private val serverFilesList = FilesListPane("Server Files", "Update", listItemClicked)
+    private val transferFilePane = TransferedFilesPane()
 
     init {
-        scrollPane.apply {
-            content = filesAdapter
-            vbarPolicy = ScrollPane.ScrollBarPolicy.AS_NEEDED
-            hbarPolicy = ScrollPane.ScrollBarPolicy.NEVER
+        filesGrid.apply {
+            columnConstraints.addAll(ColumnConstraints(590.0), ColumnConstraints(590.0))
+            add(myFilesList, 0, 0)
+            add(serverFilesList, 1, 0)
+            add(transferFilePane, 0, 1,2, 1)
         }
-
-        val box = VBox()
         val header = BorderPane().apply {
             left = addSearchBox()
-            right = addButtonsBox()
-            styleClass.add("fs-full-width")
+            right = addDownloadButton()
         }
-        box.children.addAll(header, scrollPane)
-        root.children.add(box)
+        children.addAll(header, filesGrid)
     }
 
     private fun addSearchBox(): HBox {
@@ -45,9 +42,9 @@ class FilesPane: IFilesContract.IView{
         }
     }
 
-    private fun addButtonsBox(): HBox {
+    private fun addDownloadButton(): HBox {
         return HBox().apply {
-            children.addAll(downloadButton, updateLocalButton, updateRemoteButton)
+            children.addAll(downloadButton)
             styleClass.add("fs-button-box")
         }
     }
@@ -56,23 +53,35 @@ class FilesPane: IFilesContract.IView{
         return root
     }
 
-    override fun showFilesList(files: Array<String>) {
-        Platform.runLater { filesAdapter.submitList(files.toList()) }
+    override fun showTransferFiles() {
+        transferFilePane.updateList(selectedFiles.map { it.text })
     }
 
-    override fun onListItemClicked(listItem: Label) {
-        selectedFile?.let { it.styleClass.remove("fs-active") }
-        selectedFile = listItem
-        listItem.styleClass.add("fs-active")
+    override fun showMyFilesList(files: Array<String>) {
+        myFilesList.setFilesList(files.toList())
     }
 
-    override fun showDownloadedAlert() {
-        Alert(Alert.AlertType.INFORMATION).apply {
-            title = "Download"
-            headerText = null
-            contentText = "File downloaded."
-            showAndWait()
+    override fun showServerFilesList(files: Array<String>) {
+        serverFilesList.setFilesList(files.toList())
+    }
+
+    private fun onListItemClicked(listItem: Label) {
+        if (selectedFiles.contains(listItem)) {
+            listItem.styleClass.remove("fs-active")
+            selectedFiles.remove(listItem)
         }
+        else {
+            listItem.styleClass.add("fs-active")
+            selectedFiles.add(listItem)
+        }
+
+    }
+
+    override fun clearSelectedFiles() {
+        selectedFiles.forEach {
+            it.styleClass.remove("fs-active")
+        }
+        selectedFiles.clear()
     }
 
     override fun showNoFilesFoundedAlert() {
@@ -100,4 +109,19 @@ class FilesPane: IFilesContract.IView{
             showAndWait()
         }
     }
+
+    override fun showDownloadingFile(pos: Int) {
+        transferFilePane.setDownloading(pos)
+    }
+
+    override fun showConcludedFile(pos: Int) {
+        transferFilePane.setConcluded(pos)
+    }
+
+    fun getReloadServerButton() = serverFilesList.getReloadButton()
+    fun getReloadLocalButton() = myFilesList.getReloadButton()
+    fun getDownloadButton() = downloadButton
+    fun getSearchButton() = searchButton
+    fun getSearchFieldText() = searchField.text.trim()
+    fun getSelectedFiles() = selectedFiles.map { it.text }
 }
