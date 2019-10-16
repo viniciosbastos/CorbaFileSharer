@@ -8,11 +8,11 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import shared.adapters.FilesAdapter
 
-class FilesListPane constructor(headerText: String, buttonName: String, private val listItemOnClick: (Label) -> Unit = {}): VBox() {
+class FilesListPane constructor(headerText: String, private val listItemOnClick: (Label) -> Unit = {}): VBox() {
 
     private val scrollPane = ScrollPane().apply { styleClass.add("fs-files-scroll-view") }
     private val adapter = FilesAdapter(listItemOnClick)
-    private val reloadButton = Button(buttonName).apply { styleClass.addAll("fs-custom-button", "fs-infinity-width") }
+    private val reloadButton = Button("Synchronize").apply { styleClass.addAll("fs-custom-button", "fs-infinity-width") }
 
     init {
         scrollPane.apply {

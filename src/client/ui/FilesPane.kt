@@ -16,9 +16,9 @@ class FilesPane: VBox(), IFilesContract.IView{
     private val selectedFiles = mutableListOf<Label>()
 
     private val filesGrid = GridPane().apply { styleClass.add("fs-padding") }
-    private val myFilesList = FilesListPane("My Files","Update and Send")
+    private val myFilesList = FilesListPane("My Files")
     private val listItemClicked = {item: Label -> onListItemClicked(item)}
-    private val serverFilesList = FilesListPane("Server Files", "Update", listItemClicked)
+    private val serverFilesList = FilesListPane("Server Files", listItemClicked)
     private val transferFilePane = TransferedFilesPane()
 
     init {
